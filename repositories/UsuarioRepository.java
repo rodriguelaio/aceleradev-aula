@@ -27,4 +27,21 @@ public class UsuarioRepository {
         });
     }
 
+    public List<Professor> getProfessores(){
+        List<Professor> professores = new ArrayList<>();
+        usuarios.forEach(usuario -> {
+            if(usuario instanceof Professor)
+                professores.add((Professor) usuario);
+        });
+        return professores;
+    }
+
+    public List<Aluno> getAlunos(){
+        List<Aluno> alunos = new ArrayList<>();
+        usuarios.forEach(usuario -> {
+            if(usuario instanceof Aluno)
+                alunos.add((Aluno) usuario);
+        });
+        return alunos;
+    }
 }
