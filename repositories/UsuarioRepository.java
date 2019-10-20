@@ -1,6 +1,8 @@
 package br.com.aceleradev.main.segundasemana.repositories;
 
+import java.time.LocalDate;
 import java.time.Year;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ArrayList;
 import br.com.aceleradev.main.segundasemana.domain.Usuario;
@@ -32,7 +34,7 @@ public class UsuarioRepository {
     }
 
     private int calculaTotalIdades(List<Usuario> usuariosTipoEspecifico){
-        return usuariosTipoEspecifico.stream().mapToInt(professor -> Year.now().getValue() - professor.getDataDeNascimento().getYear()).sum();
+        return usuariosTipoEspecifico.stream().mapToInt(professor -> (int) ChronoUnit.YEARS.between(LocalDate.now(),professor.getDataDeNascimento())).sum();
     }
 
     private int calculaMediadeIdade(List<Usuario> usuariosTipoEspecifico){
