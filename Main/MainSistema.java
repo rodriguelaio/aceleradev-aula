@@ -1,40 +1,42 @@
 package br.com.aceleradev.main.segundasemana.Main;
 
-import br.com.aceleradev.main.segundasemana.domain.Aluno;
-import br.com.aceleradev.main.segundasemana.domain.Disciplina;
-import br.com.aceleradev.main.segundasemana.domain.Professor;
-import br.com.aceleradev.main.segundasemana.repositories.UsuarioRepository;
+import br.com.aceleradev.main.segundasemana.dataloader.DataLoader;
+import br.com.aceleradev.main.segundasemana.domain.*;
 
 public class MainSistema {
     public static void main(String[] args) {
-        UsuarioRepository usuario = new UsuarioRepository();
-        Aluno aluno1 = new Aluno("Rodrigo",
+
+        DataLoader dataLoader = new DataLoader();
+
+        Aluno aluno1 = dataLoader.incluirAluno("Rodrigo",
                 "rodriguelaio",
                 "123.456.789-10",
-                "06/09/1984",
-                usuario);
-        Aluno aluno2 = new Aluno("Amanda",
+                "06/09/1984");
+
+        Aluno aluno2 = dataLoader.incluirAluno("Amanda",
                 "amandas",
                 "111.222.333-44",
-                "07/11/1988",
-                usuario);
-        Professor professor1 = new Professor("Girafales",
+                "07/11/1988");
+
+        Professor professor1 = dataLoader.incluirProfessor("Girafales",
                 "girafa",
                 "109.876.543-21",
                 "NaoSei",
-                "10/10/1939",
-                usuario);
-        Professor professor2 = new Professor("Testando",
+                "10/10/1939");
+
+        Professor professor2 = dataLoader.incluirProfessor("Testando",
                 "testa",
                 "109.876.543-21",
                 "NaoSei",
-                "10/10/1949",
-                usuario);
-        Disciplina disciplina = new Disciplina("Matematica",
+                "10/10/1949");
+
+        Disciplina disciplina1 = dataLoader.incluirDisciplina("Matematica",
                 professor1);
 
-        disciplina.matricularAluno(aluno1);
-        System.out.println(usuario.mediaDeIdade(aluno1.getClass()));
+        disciplina1.matricularAluno(aluno1);
+
+        System.out.println(dataLoader.usuario.mediaDeIdade(aluno1.getClass()));
+        System.out.println(dataLoader.usuario.mediaDeIdade(professor1.getClass()));
 
     }
 }
