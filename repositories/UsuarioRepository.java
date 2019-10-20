@@ -1,10 +1,9 @@
 package br.com.aceleradev.main.segundasemana.repositories;
 
-import br.com.aceleradev.main.segundasemana.domain.Aluno;
-import br.com.aceleradev.main.segundasemana.domain.Professor;
-import br.com.aceleradev.main.segundasemana.domain.Usuario;
-import java.util.ArrayList;
+import java.time.Year;
 import java.util.List;
+import java.util.ArrayList;
+import br.com.aceleradev.main.segundasemana.domain.Usuario;
 
 public class UsuarioRepository {
     private List<Usuario> usuarios = new ArrayList<>();
@@ -13,35 +12,30 @@ public class UsuarioRepository {
         usuarios.add(usuario);
     }
 
-    public void mostraProfessor(){
-        usuarios.forEach(usuario -> {
-            if(usuario instanceof Professor)
-                System.out.println(usuario);
-        });
+    public void mostraTipoUsuarioEspecifico(Class instanciaTipoEspecifico){
+        System.out.println(getListaUsuariosTipoEspecifico(instanciaTipoEspecifico));
     }
 
-    public void mostraAluno(){
+    public List<Usuario> getListaUsuariosTipoEspecifico(Class instanciaTipoEspecifico){
+        List<Usuario> usuariosTipoEspecifico = new ArrayList<>();
         usuarios.forEach(usuario -> {
-            if(usuario instanceof Aluno)
-                System.out.println(usuario);
+            if(instanciaTipoEspecifico.isInstance(usuario))
+                usuariosTipoEspecifico.add(usuario);
         });
+        return usuariosTipoEspecifico;
     }
 
-    public List<Professor> getProfessores(){
-        List<Professor> professores = new ArrayList<>();
-        usuarios.forEach(usuario -> {
-            if(usuario instanceof Professor)
-                professores.add((Professor) usuario);
-        });
-        return professores;
+    public double mediaDeIdade(Class instanciaTipoEspecifico){
+        List<Usuario> usuariosTipoEspecifico = getListaUsuariosTipoEspecifico(instanciaTipoEspecifico);
+        calculaTotalIdades(usuariosTipoEspecifico);
+        return calculaMediadeIdade(usuariosTipoEspecifico);
     }
 
-    public List<Aluno> getAlunos(){
-        List<Aluno> alunos = new ArrayList<>();
-        usuarios.forEach(usuario -> {
-            if(usuario instanceof Aluno)
-                alunos.add((Aluno) usuario);
-        });
-        return alunos;
+    private int calculaTotalIdades(List<Usuario> usuariosTipoEspecifico){
+        return usuariosTipoEspecifico.stream().mapToInt(professor -> Year.now().getValue() - professor.getDataDeNascimento().getYear()).sum();
+    }
+
+    private int calculaMediadeIdade(List<Usuario> usuariosTipoEspecifico){
+        return calculaTotalIdades(usuariosTipoEspecifico) / usuariosTipoEspecifico.size();
     }
 }

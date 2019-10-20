@@ -1,11 +1,10 @@
 package br.com.aceleradev.main.segundasemana.domain;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import br.com.aceleradev.main.segundasemana.repositories.UsuarioRepository;
 
 public class Aluno extends Usuario{
-    public Aluno(String nome, String login, String cpf, String dataDeNascimento){
-        super(nome, login, cpf, LocalDate.parse(dataDeNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+    public Aluno(String nome, String login, String cpf, String dataDeNascimento, UsuarioRepository usuario){
+        super(nome, login, cpf, dataDeNascimento, usuario);
     }
 
 }

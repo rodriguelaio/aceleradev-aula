@@ -2,23 +2,23 @@ package br.com.aceleradev.main.segundasemana.domain;
 
 import br.com.aceleradev.main.segundasemana.exception.LoginInvalidoException;
 import br.com.aceleradev.main.segundasemana.repositories.UsuarioRepository;
+import static br.com.aceleradev.main.segundasemana.utils.ConverterStringLocalData.ConverterStringLocalData;
 import static br.com.aceleradev.main.segundasemana.utils.MensagemException.LOGIN_MENOR_QUE_TRES_CARACTERES;
 
 import java.time.LocalDate;
 
 public class Usuario {
 
-    protected final static UsuarioRepository usuario = new UsuarioRepository();
-
     private String nome;
     private String login;
     private String cpf;
     private LocalDate dataDeNascimento;
 
-    public Usuario(String nome, String login, String cpf, LocalDate dataDeNascimento){
+    public Usuario(String nome, String login, String cpf, String dataDeNascimento, UsuarioRepository usuario){
         setNome(nome);
         setLogin(login);
         setCpf(cpf);
+
         setDataDeNascimento(dataDeNascimento);
         usuario.insereUsuario(this);
     }
@@ -47,5 +47,5 @@ public class Usuario {
 
     public LocalDate getDataDeNascimento(){ return this.dataDeNascimento; }
 
-    private void setDataDeNascimento(LocalDate dataDeNascimento){ this.dataDeNascimento = dataDeNascimento; }
+    private void setDataDeNascimento(String dataDeNascimento){ this.dataDeNascimento = ConverterStringLocalData(dataDeNascimento); }
 }
