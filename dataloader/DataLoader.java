@@ -21,7 +21,7 @@ public class DataLoader {
 
     public Disciplina incluirDisciplina(String nome, TiposDeDisciplinas tiposDeDisciplinas, Professor professor){
         Disciplina disciplina = new Disciplina(nome, tiposDeDisciplinas, professor);
-        repositorio.insereDisciplina(disciplina, tiposDeDisciplinas);
+        repositorio.insereDisciplina(disciplina);
         return disciplina;
     }
 }

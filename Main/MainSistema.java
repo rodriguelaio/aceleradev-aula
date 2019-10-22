@@ -36,14 +36,14 @@ public class MainSistema {
                 "NaoSei",
                 "10/10/1949");
 
-        Professor professor3 = dataLoader.incluirProfessor("Testando",
-                "testa",
+        Professor professor3 = dataLoader.incluirProfessor("Maria",
+                "zinha",
                 "109.876.543-21",
                 "NaoSei",
                 "10/10/1949");
 
-        Professor professor4 = dataLoader.incluirProfessor("Testando",
-                "testa",
+        Professor professor4 = dataLoader.incluirProfessor("Joana",
+                "jojo",
                 "109.876.543-21",
                 "NaoSei",
                 "10/10/1949");

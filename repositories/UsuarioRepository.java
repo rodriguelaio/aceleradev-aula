@@ -22,8 +22,8 @@ public class UsuarioRepository {
 
     public void insereUsuario(Usuario usuario){ usuarios.add(usuario); }
 
-    public void insereDisciplina(Disciplina disciplina, TiposDeDisciplinas tipoDeDisciplina){
-        acumularTipoDisciplina(tipoDeDisciplina);
+    public void insereDisciplina(Disciplina disciplina){
+        acumularTipoDisciplina(disciplina.getTipoDisciplina());
         disciplinas.add(disciplina);
     }
 
