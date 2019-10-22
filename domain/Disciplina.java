@@ -1,9 +1,12 @@
 package br.com.aceleradev.main.segundasemana.domain;
 
-import br.com.aceleradev.main.segundasemana.enums.TiposDeDisciplinas;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import br.com.aceleradev.main.segundasemana.enums.TiposDeDisciplinas;
+import br.com.aceleradev.main.segundasemana.exception.NumeroMaximoDeAlunosException;
+import br.com.aceleradev.main.segundasemana.exception.ProfessorNaoLecionaDisciplinaException;
+
+import static br.com.aceleradev.main.segundasemana.utils.MensagemException.*;
 
 public class Disciplina {
 
@@ -45,9 +48,13 @@ public class Disciplina {
 //        return "humanas";
 //    }
 
+    public List<Professor> getProfessores(){ return this.professores; }
+
     private void setProfessor(Professor professor){ this.professores.add(professor); }
 
-    public void matricularAluno(Aluno aluno){
-        if(alunos.size() < 10) alunos.add(aluno);
+    public void matricularAluno(Professor professor, Aluno aluno){
+        if(!this.getProfessores().contains(professor)) throw new ProfessorNaoLecionaDisciplinaException(PROFESSOR_NAO_LECIONA_DISCIPLINA);
+        if(alunos.size() >= 10) throw new NumeroMaximoDeAlunosException(SALA_LOTADA);
+        alunos.add(aluno);
     }
 }

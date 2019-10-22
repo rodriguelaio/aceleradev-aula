@@ -1,11 +1,9 @@
 package br.com.aceleradev.main.segundasemana.domain;
 
+import java.time.LocalDate;
 import br.com.aceleradev.main.segundasemana.exception.LoginInvalidoException;
-import br.com.aceleradev.main.segundasemana.repositories.UsuarioRepository;
 import static br.com.aceleradev.main.segundasemana.utils.ConverterStringLocalData.ConverterStringLocalData;
 import static br.com.aceleradev.main.segundasemana.utils.MensagemException.LOGIN_MENOR_QUE_TRES_CARACTERES;
-
-import java.time.LocalDate;
 
 public class Usuario {
 

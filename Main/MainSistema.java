@@ -1,13 +1,8 @@
 package br.com.aceleradev.main.segundasemana.Main;
 
-import br.com.aceleradev.main.segundasemana.dataloader.DataLoader;
 import br.com.aceleradev.main.segundasemana.domain.*;
+import br.com.aceleradev.main.segundasemana.dataloader.DataLoader;
 import br.com.aceleradev.main.segundasemana.enums.TiposDeDisciplinas;
-import jdk.management.jfr.RecordingInfo;
-
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 public class MainSistema {
     public static void main(String[] args) {
@@ -23,6 +18,11 @@ public class MainSistema {
                 "amandas",
                 "111.222.333-44",
                 "07/11/1988");
+
+        Aluno aluno3 = dataLoader.incluirAluno("Rosa",
+                "rosinha",
+                "999.999.999-99",
+                "20/08/1945");
 
         Professor professor1 = dataLoader.incluirProfessor("Girafales",
                 "girafa",
@@ -76,11 +76,16 @@ public class MainSistema {
                 TiposDeDisciplinas.BIOLOGICAS,
                 professor4);
 
-        disciplina1.matricularAluno(aluno1);
+        dataLoader.matriculaAluno(disciplina1, professor1, aluno1);
+        dataLoader.matriculaAluno(disciplina2, professor1, aluno3);
+        dataLoader.matriculaAluno(disciplina6, professor4, aluno1);
+        dataLoader.matriculaAluno(disciplina7, professor4, aluno2);
+        dataLoader.matriculaAluno(disciplina6, professor4, aluno2);
 
-        System.out.println(dataLoader.repositorio.mediaDeIdade(aluno1.getClass()));
-        System.out.println(dataLoader.repositorio.mediaDeIdade(professor1.getClass()));
-        dataLoader.repositorio.mostraDisciplinas();
+        System.out.println(dataLoader.mediaDeIdade(aluno1.getClass()));
+        System.out.println(dataLoader.mediaDeIdade(professor1.getClass()));
+        dataLoader.mostraDisciplinas();
+        dataLoader.mostraQuantidadeAlunosPorProfessor();
 
     }
 }

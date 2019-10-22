@@ -1,30 +1,34 @@
 package br.com.aceleradev.main.segundasemana.repositories;
 
+import java.util.Map;
+import java.util.List;
+import java.util.HashMap;
+import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.ArrayList;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import br.com.aceleradev.main.segundasemana.domain.Disciplina;
+import br.com.aceleradev.main.segundasemana.domain.Aluno;
 import br.com.aceleradev.main.segundasemana.domain.Usuario;
+import br.com.aceleradev.main.segundasemana.domain.Professor;
+import br.com.aceleradev.main.segundasemana.domain.Disciplina;
 import br.com.aceleradev.main.segundasemana.enums.TiposDeDisciplinas;
 
 public class UsuarioRepository {
     private List<Usuario> usuarios = new ArrayList<>();
     private List<Disciplina> disciplinas = new ArrayList<>();
-    Map<String, Integer> tiposDisciplinasXProfessores = new HashMap<String, Integer>();
+    private Map<String, Integer> tiposDisciplinasXProfessores = new HashMap<String, Integer>();
+    private Map<String, Integer> professoresXAlunos = new HashMap<>();
 
     public UsuarioRepository(){
         preencheDisciplinas();
     }
 
-    public void insereUsuario(Usuario usuario){ usuarios.add(usuario); }
+    protected void insereUsuario(Usuario usuario){
+        usuarios.add(usuario);
+        if(usuario instanceof Professor) adicionaProfessorXAluno((Professor) usuario);
+    }
 
-    public void insereDisciplina(Disciplina disciplina){
-        acumularTipoDisciplina(disciplina.getTipoDisciplina());
+    protected void insereDisciplina(Disciplina disciplina){
+        acumulaTipoDisciplina(disciplina.getTipoDisciplina());
         disciplinas.add(disciplina);
     }
 
@@ -36,23 +40,28 @@ public class UsuarioRepository {
         }
     }
 
-    private void acumularTipoDisciplina(TiposDeDisciplinas tiposDeDisciplinas){
-//        disciplinas[Arrays.asList(disciplinas).indexOf(disciplina.getValor())][1]++;
-        tiposDisciplinasXProfessores.put(tiposDeDisciplinas.name(), tiposDisciplinasXProfessores.get(tiposDeDisciplinas.name()) + 1);
+    protected void adicionaProfessorXAluno(Professor professor){
+        professoresXAlunos.put(professor.getNome(),0);
     }
 
-    public void mostraDisciplinas(){
+    private void acumulaTipoDisciplina(TiposDeDisciplinas tiposDeDisciplinas){
+//        disciplinas[Arrays.asList(disciplinas).indexOf(disciplina.getValor())][1]++;
+        Integer indexTipoDisciplina = tiposDisciplinasXProfessores.get(tiposDeDisciplinas.name());
+        tiposDisciplinasXProfessores.put(tiposDeDisciplinas.name(), (indexTipoDisciplina == null ? 0 : indexTipoDisciplina) + 1);
+    }
+
+    protected void mostraDisciplinas(){
 //        for(int i = 0;i < disciplinas.length; i++){
 //            System.out.println(disciplinas[i][0] + " - " + disciplinas[i][1]);
 //        }
         tiposDisciplinasXProfessores.forEach((tippoDisciplinaXProfessor, contador) -> System.out.println(tippoDisciplinaXProfessor + " - " + contador));
     }
 
-    public void mostraTipoUsuarioEspecifico(Class instanciaTipoEspecifico){
+    protected void mostraTipoUsuarioEspecifico(Class instanciaTipoEspecifico){
         System.out.println(getListaUsuariosTipoEspecifico(instanciaTipoEspecifico));
     }
 
-    public List<Usuario> getListaUsuariosTipoEspecifico(Class instanciaTipoEspecifico){
+    protected List<Usuario> getListaUsuariosTipoEspecifico(Class instanciaTipoEspecifico){
         List<Usuario> usuariosTipoEspecifico = new ArrayList<>();
         usuarios.forEach(usuario -> {
             if(instanciaTipoEspecifico.isInstance(usuario))
@@ -61,7 +70,7 @@ public class UsuarioRepository {
         return usuariosTipoEspecifico;
     }
 
-    public double mediaDeIdade(Class instanciaTipoEspecifico){
+    protected double mediaDeIdade(Class instanciaTipoEspecifico){
         List<Usuario> usuariosTipoEspecifico = getListaUsuariosTipoEspecifico(instanciaTipoEspecifico);
         calculaTotalIdades(usuariosTipoEspecifico);
         return calculaMediadeIdade(usuariosTipoEspecifico);
@@ -73,5 +82,23 @@ public class UsuarioRepository {
 
     private int calculaMediadeIdade(List<Usuario> usuariosTipoEspecifico){
         return calculaTotalIdades(usuariosTipoEspecifico) / usuariosTipoEspecifico.size();
+    }
+
+    protected void matriculaAluno(Disciplina disciplina, Professor professor, Aluno aluno){
+        try {
+            disciplina.matricularAluno(professor, aluno);
+            acumulaProfessorXAluno(professor, aluno);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void acumulaProfessorXAluno(Professor professor , Aluno aluno){
+        Integer indexProfessorXAluno = professoresXAlunos.get(professor.getNome());
+        professoresXAlunos.put(professor.getNome(), (indexProfessorXAluno == null ? 0 : indexProfessorXAluno) + 1);
+    }
+
+    protected void mostraQuantidadeAlunosPorProfessor(){
+        professoresXAlunos.forEach((professor, contador) -> System.out.println(professor + " - " + contador));
     }
 }
