@@ -36,7 +36,7 @@ public class UsuarioRepository {
     }
 
     private int calculaTotalIdades(List<Usuario> usuariosTipoEspecifico){
-        return usuariosTipoEspecifico.stream().mapToInt(professor -> (int) ChronoUnit.YEARS.between(LocalDate.now(),professor.getDataDeNascimento())).sum();
+        return usuariosTipoEspecifico.stream().mapToInt(professor -> (int) ChronoUnit.YEARS.between(professor.getDataDeNascimento(),LocalDate.now())).sum();
     }
 
     private int calculaMediadeIdade(List<Usuario> usuariosTipoEspecifico){
