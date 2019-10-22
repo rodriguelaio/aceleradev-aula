@@ -72,16 +72,11 @@ public class UsuarioRepository {
 
     protected double mediaDeIdade(Class instanciaTipoEspecifico){
         List<Usuario> usuariosTipoEspecifico = getListaUsuariosTipoEspecifico(instanciaTipoEspecifico);
-        calculaTotalIdades(usuariosTipoEspecifico);
-        return calculaMediadeIdade(usuariosTipoEspecifico);
-    }
-
-    private int calculaTotalIdades(List<Usuario> usuariosTipoEspecifico){
-        return usuariosTipoEspecifico.stream().mapToInt(professor -> (int) ChronoUnit.YEARS.between(professor.getDataDeNascimento(),LocalDate.now())).sum();
-    }
-
-    private int calculaMediadeIdade(List<Usuario> usuariosTipoEspecifico){
         return calculaTotalIdades(usuariosTipoEspecifico) / usuariosTipoEspecifico.size();
+    }
+
+    private double calculaTotalIdades(List<Usuario> usuariosTipoEspecifico){
+        return usuariosTipoEspecifico.stream().mapToInt(professor -> (int) ChronoUnit.YEARS.between(professor.getDataDeNascimento(),LocalDate.now())).sum();
     }
 
     protected void matriculaAluno(Disciplina disciplina, Professor professor, Aluno aluno){

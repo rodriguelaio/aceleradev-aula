@@ -17,7 +17,6 @@ public class Usuario {
         setLogin(login);
         setCpf(cpf);
         setDataDeNascimento(dataDeNascimento);
-        //usuario.insereUsuario(this);
     }
 
     public String getNome(){ return this.nome; }

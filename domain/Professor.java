@@ -12,4 +12,6 @@ public class Professor extends Usuario{
     public void setSobrenome(){
         this.sobrenome = sobrenome;
     }
+
+    public String getSobrenome(){ return this.sobrenome; }
 }
