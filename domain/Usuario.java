@@ -14,13 +14,12 @@ public class Usuario {
     private String cpf;
     private LocalDate dataDeNascimento;
 
-    public Usuario(String nome, String login, String cpf, String dataDeNascimento, UsuarioRepository usuario){
+    public Usuario(String nome, String login, String cpf, String dataDeNascimento){
         setNome(nome);
         setLogin(login);
         setCpf(cpf);
-
         setDataDeNascimento(dataDeNascimento);
-        usuario.insereUsuario(this);
+        //usuario.insereUsuario(this);
     }
 
     public String getNome(){ return this.nome; }
