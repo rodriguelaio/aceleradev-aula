@@ -96,4 +96,13 @@ public class UsuarioRepository {
     protected void mostraQuantidadeAlunosPorProfessor(){
         professoresXAlunos.forEach((professor, contador) -> System.out.println(professor + " - " + contador));
     }
+
+    public double mediaAnosCarreira(){
+        List<Usuario> usuariosTipoEspecifico = getListaUsuariosTipoEspecifico(Professor.class);
+        return calculaAnosCarreira(usuariosTipoEspecifico) / usuariosTipoEspecifico.size();
+    }
+
+    private double calculaAnosCarreira(List<Usuario> professores){
+        return professores.stream().mapToInt(professor -> LocalDate.now().getYear() - ((Professor) professor).getAnoInicioCarreira()).sum();
+    }
 }

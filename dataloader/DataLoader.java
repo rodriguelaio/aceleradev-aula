@@ -13,8 +13,8 @@ public class DataLoader extends UsuarioRepository {
         return aluno;
     }
 
-    public Professor incluirProfessor(String nome, String login, String cpf, String sobrenome, String dataDeNascimento){
-        Professor professor =  new Professor(nome, login, cpf, sobrenome, dataDeNascimento);
+    public Professor incluirProfessor(String nome, String login, String cpf, String sobrenome, String dataDeNascimento, int anoInicioCarreira){
+        Professor professor =  new Professor(nome, login, cpf, sobrenome, dataDeNascimento, anoInicioCarreira);
         insereUsuario(professor);
         return professor;
     }
@@ -39,5 +39,9 @@ public class DataLoader extends UsuarioRepository {
 
     public void mostraQuantidadeAlunosPorProfessor(){
         super.mostraQuantidadeAlunosPorProfessor();
+    }
+
+    public double mediaAnosCarreira(){
+        return super.mediaAnosCarreira();
     }
 }

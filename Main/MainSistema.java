@@ -28,25 +28,29 @@ public class MainSistema {
                 "girafa",
                 "109.876.543-21",
                 "NaoSei",
-                "10/10/1939");
+                "10/10/1939",
+                1960);
 
         Professor professor2 = dataLoader.incluirProfessor("Jose",
                 "zezinho",
                 "111.111.111-11",
                 "NaoSei",
-                "10/10/1949");
+                "10/10/1949",
+                1980);
 
         Professor professor3 = dataLoader.incluirProfessor("Maria",
                 "zinha",
                 "109.876.543-21",
                 "NaoSei",
-                "10/10/1949");
+                "10/10/1949",
+                1991);
 
         Professor professor4 = dataLoader.incluirProfessor("Joana",
                 "jojo",
                 "109.876.543-21",
                 "NaoSei",
-                "10/10/1949");
+                "10/10/1949",
+                1984);
 
         Disciplina disciplina1 = dataLoader.incluirDisciplina("Matematica",
                 TiposDeDisciplinas.EXATAS,
@@ -86,6 +90,7 @@ public class MainSistema {
         System.out.println(dataLoader.mediaDeIdade(professor1.getClass()));
         dataLoader.mostraDisciplinas();
         dataLoader.mostraQuantidadeAlunosPorProfessor();
+        System.out.println(dataLoader.mediaAnosCarreira());
 
     }
 }
